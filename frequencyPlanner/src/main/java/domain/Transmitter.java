@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
-
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import optional.domain.TransmitterDifficultyComparator;
 
-@PlanningEntity()
+@PlanningEntity(difficultyComparatorClass = TransmitterDifficultyComparator.class)
 @XStreamAlias("Transmitter")
 public class Transmitter {
 	
@@ -41,13 +41,18 @@ public class Transmitter {
 		this.neighbours = neighbours;
 	}
 
-	@PlanningVariable()
+	@PlanningVariable(valueRangeProviderRefs = {"frequencyRange"})
 	public Frequency getFrequency() {
 		return frequency;
 	}
 
 	public void setFrequency(Frequency frequency) {
 		this.frequency = frequency;
+	}
+	
+	public int getRequiredNumberOfFrequency()
+	{
+		return 2;
 	}
 	
 	

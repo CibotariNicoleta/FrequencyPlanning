@@ -10,7 +10,7 @@ import domain.Transmitter;
 
 public class FrequencyPlanGenerator {
 
-	private static final int[] frequencyValue = {1,2,3,4,5};
+	private static final int[] frequencyValue = {1,4,3,2,5};
 	
 //	private static final Transmitter[] transmitter = {
 //			new Transmitter(123),
@@ -86,7 +86,7 @@ public class FrequencyPlanGenerator {
 		
 		for(Transmitter transmitter:transmitterList)
 		{
-			for(int i=0; i<3; i++)
+			for(int i=0; i<2; i++)
 			{
 				    Transmitter transmitterNeighbourGenerate = transmitterList.get(random.nextInt(transmitterList.size()));
 				    

@@ -20,7 +20,7 @@ public class FrequencyPlan {
 	List<Transmitter> transmitterList;
 	List<Frequency> frequencyList;
 	
-	 @PlanningScore
+	 
 	    private HardSoftScore score;
 	
 	public FrequencyPlan(List<Transmitter> transmitter, List<Frequency> frequency) {
@@ -39,7 +39,7 @@ public class FrequencyPlan {
 		this.transmitterList = transmitter;
 	}
 	
-	  @ValueRangeProvider(id = "frequency")
+	  @ValueRangeProvider(id = "frequencyRange")
 	    @ProblemFactCollectionProperty
 	public List<Frequency> getFrequencyList() {
 		return frequencyList;
@@ -49,7 +49,14 @@ public class FrequencyPlan {
 	}
 	
 	
-	
+	  @PlanningScore
+	    public HardSoftScore getScore() {
+	        return score;
+	    }
+
+	    public void setScore(HardSoftScore score) {
+	        this.score = score;
+	    }
 	
 
 }
