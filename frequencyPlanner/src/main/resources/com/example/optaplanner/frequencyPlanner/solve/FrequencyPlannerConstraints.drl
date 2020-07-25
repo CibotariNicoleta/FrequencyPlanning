@@ -31,10 +31,10 @@ global HardSoftScoreHolder scoreHolder;
 
 rule "No neighbours with the same frequency"
     when
-        $frequency:Frequency($frequencyValue : frequencyValue)
-           
+        $transmitter:Transmitter($frequency : frequency)
+          
             
     then   scoreHolder.addHardConstraintMatch(kcontext, -1 );
-     System.out.println($frequencyValue);
+     System.out.println($frequency.getFrequencyValue());
 end
 

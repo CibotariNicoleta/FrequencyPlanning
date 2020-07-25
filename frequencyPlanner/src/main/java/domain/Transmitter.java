@@ -43,16 +43,19 @@ public class Transmitter {
 
 	@PlanningVariable(valueRangeProviderRefs = {"frequencyRange"})
 	public Frequency getFrequency() {
+		if(frequency!=null)
 		return frequency;
+		else return new Frequency(-1);
 	}
 
 	public void setFrequency(Frequency frequency) {
+		
 		this.frequency = frequency;
 	}
 	
 	public int getRequiredNumberOfFrequency()
 	{
-		return 2;
+		return neighbours.size();
 	}
 	
 	

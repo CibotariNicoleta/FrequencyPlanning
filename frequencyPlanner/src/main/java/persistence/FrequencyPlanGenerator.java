@@ -40,6 +40,8 @@ public class FrequencyPlanGenerator {
 		{
 			Transmitter transmitter = generateTransmitter(transmitterListSize);
 			transmitterList.add(transmitter);
+			//aici trebuie sters
+			transmitter.setFrequency(frequencyPlan.getFrequencyList().get(random.nextInt(frequencyPlan.getFrequencyList().size())));
 		}
 		
 		generateNeighbours(transmitterList);

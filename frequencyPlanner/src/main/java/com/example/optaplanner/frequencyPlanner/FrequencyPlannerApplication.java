@@ -40,16 +40,16 @@ public class FrequencyPlannerApplication {
 
 		
 		 
-		for(Transmitter iterator: unsolvedFrequencyPlan.getTransmitterList()) {
-			System.out.println("\n Transmitter id------------>:"+iterator.getId() );
+		for(Transmitter iterator: solvedFrequencyPlan.getTransmitterList()) {
+			System.out.println("\n Transmitter id->:"+iterator.getId()+"frequency---->"+iterator.getFrequency().getFrequencyValue());
 			if(iterator.getNeighbours()!=null) {
 			for(Transmitter secondIterrator:iterator.getNeighbours())
-			System.out.println(" \n TransmitterNeighbour id ->:"+secondIterrator.getId() );
+			System.out.println(" \n TransmitterNeighbour id ->:"+secondIterrator.getId() + "frequency---->"+secondIterrator.getFrequency().getFrequencyValue());
 		    }
 		}
 		
 		
-		for(Frequency frequency:unsolvedFrequencyPlan.getFrequencyList()) {
+		for(Frequency frequency:solvedFrequencyPlan.getFrequencyList()) {
 			System.out.println("\n frequency id: ----->" + frequency.getFrequencyValue());
 		}
 		
