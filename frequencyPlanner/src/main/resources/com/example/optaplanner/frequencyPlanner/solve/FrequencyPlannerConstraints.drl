@@ -29,12 +29,31 @@ global HardSoftScoreHolder scoreHolder;
 // Hard constraints
 // ############################################################################
 
-rule "No neighbours with the same frequency"
-    when
-        $transmitter:Transmitter($frequency : frequency)
+
+
+
+rule "no neighbour with the same frequency"
+  when 
+      $transmitter:Transmitter(frequency!=null, $frequency : frequency.getFrequencyValue() , $neighbours : neighbours)
+         Transmitter(frequency!=null && frequency.getFrequencyValue() == $frequency) from $neighbours
           
+  then
+      
+       scoreHolder.addHardConstraintMatch(kcontext, -1);
+      end
+      
+      
+      
+  /*rule "is null frequency"
+  when 
+      $transmitter:Transmitter($frequency : frequency == null , $neighbours : neighbours)
+         $neighboursIterator : Transmitter($neighbourFrequency : frequency == null) from $neighbours
             
-    then   scoreHolder.addHardConstraintMatch(kcontext, -1 );
-     System.out.println($frequency.getFrequencyValue());
-end
+  then
+      
+       scoreHolder.addHardConstraintMatch(kcontext, 0);
+      end*/
+
+
+
 

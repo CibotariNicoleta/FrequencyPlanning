@@ -30,10 +30,11 @@ public class FrequencyPlannerApplication {
 		
 		SolverFactory<FrequencyPlan> solverFactory = SolverFactory.createFromXmlResource(
                 "com/example/optaplanner/frequencyPlanner/solve/FrequencyPlannerSolve.xml");
+		
         Solver<FrequencyPlan> solver = solverFactory.buildSolver();
-
+        System.out.println("cf");
         // Load a problem
-        FrequencyPlan unsolvedFrequencyPlan = new FrequencyPlanGenerator().createFrequencyPlan(8, 6);
+        FrequencyPlan unsolvedFrequencyPlan = new FrequencyPlanGenerator().createFrequencyPlan(8, 7);
        
         // Solve the problem
         FrequencyPlan solvedFrequencyPlan = solver.solve(unsolvedFrequencyPlan);
@@ -41,11 +42,13 @@ public class FrequencyPlannerApplication {
 		
 		 
 		for(Transmitter iterator: solvedFrequencyPlan.getTransmitterList()) {
-			System.out.println("\n Transmitter id->:"+iterator.getId()+"frequency---->"+iterator.getFrequency().getFrequencyValue());
+			System.out.println("\n Transmitter id->: "+iterator.getId()+" | frequency---->"+iterator.getFrequency().getFrequencyValue());
 			if(iterator.getNeighbours()!=null) {
 			for(Transmitter secondIterrator:iterator.getNeighbours())
-			System.out.println(" \n TransmitterNeighbour id ->:"+secondIterrator.getId() + "frequency---->"+secondIterrator.getFrequency().getFrequencyValue());
+			System.out.println(" \n TransmitterNeighbour id ->: "+secondIterrator.getId() + "  | frequency---->"+secondIterrator.getFrequency().getFrequencyValue());
 		    }
+			
+			System.out.println("\n");
 		}
 		
 		

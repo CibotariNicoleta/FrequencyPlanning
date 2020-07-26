@@ -9,6 +9,7 @@ import domain.FrequencyPlan;
 import domain.Transmitter;
 
 public class FrequencyPlanGenerator {
+	
 
 	private static final int[] frequencyValue = {1,4,3,2,5};
 	
@@ -29,7 +30,6 @@ public class FrequencyPlanGenerator {
 		FrequencyPlan frequencyPlan = new FrequencyPlan();
 		createFrequencyList(frequencyPlan, frequencyList);
 		createTransmitterList(frequencyPlan, transmitterList);
-		
 		return frequencyPlan;
 	}
 	
@@ -41,7 +41,7 @@ public class FrequencyPlanGenerator {
 			Transmitter transmitter = generateTransmitter(transmitterListSize);
 			transmitterList.add(transmitter);
 			//aici trebuie sters
-			transmitter.setFrequency(frequencyPlan.getFrequencyList().get(random.nextInt(frequencyPlan.getFrequencyList().size())));
+			//transmitter.setFrequency(frequencyPlan.getFrequencyList().get(random.nextInt(frequencyPlan.getFrequencyList().size())));
 		}
 		
 		generateNeighbours(transmitterList);
@@ -64,13 +64,13 @@ public class FrequencyPlanGenerator {
 		List<Integer> idList = new ArrayList<>();
 		boolean check=true;
 		Transmitter transmitterGeneration = null;
-		int idTransmitter = random.nextInt(transmitterListSize+100);
 		while(check) {
-		if(!idList.contains(idTransmitter)) {
-			idList.add(idTransmitter);
-			transmitterGeneration = new Transmitter(idTransmitter);		
-			check = false;
-		}else continue;
+			int idTransmitter = random.nextInt(transmitterListSize+100);
+			if(!idList.contains(idTransmitter)) {
+				idList.add(idTransmitter);
+				transmitterGeneration = new Transmitter(idTransmitter);		
+				check = false;
+			}else continue;
 		}
 		
 		return transmitterGeneration;
@@ -80,7 +80,6 @@ public class FrequencyPlanGenerator {
 		Frequency frequency = new Frequency();
 		int generateFrequencyValue = random.nextInt(frequencyValue.length);
 		frequency.setFrequencyValue(frequencyValue[generateFrequencyValue]);
-		
 		return frequency;
 	}
 	
@@ -90,8 +89,7 @@ public class FrequencyPlanGenerator {
 		{
 			for(int i=0; i<2; i++)
 			{
-				    Transmitter transmitterNeighbourGenerate = transmitterList.get(random.nextInt(transmitterList.size()));
-				    
+				    Transmitter transmitterNeighbourGenerate = transmitterList.get(random.nextInt(transmitterList.size()));  
 				    if( transmitter.getId() == transmitterNeighbourGenerate.getId()|| transmitter.getNeighbours().contains(transmitterNeighbourGenerate)) {
 				    	continue;
 					     
@@ -104,4 +102,5 @@ public class FrequencyPlanGenerator {
 			}
 		}
 	}
+
 }

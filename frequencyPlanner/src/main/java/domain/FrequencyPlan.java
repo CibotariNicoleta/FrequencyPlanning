@@ -17,11 +17,9 @@ import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProp
 @XStreamAlias("FrequencyPlan")
 public class FrequencyPlan {
 	
-	List<Transmitter> transmitterList;
-	List<Frequency> frequencyList;
-	
-	 
-	    private HardSoftScore score;
+	private List<Transmitter> transmitterList;
+	private List<Frequency> frequencyList;
+    private HardSoftScore score;
 	
 	public FrequencyPlan(List<Transmitter> transmitter, List<Frequency> frequency) {
 		super();
@@ -29,34 +27,42 @@ public class FrequencyPlan {
 		this.frequencyList = frequency;
 	}
 	
+	
 	public FrequencyPlan() {}
+	
 	
 	@PlanningEntityCollectionProperty
 	public List<Transmitter> getTransmitterList() {
 		return transmitterList;
 	}
+	
+	
 	public void setTransmitterList(List<Transmitter> transmitter) {
 		this.transmitterList = transmitter;
 	}
+	
 	
 	  @ValueRangeProvider(id = "frequencyRange")
 	    @ProblemFactCollectionProperty
 	public List<Frequency> getFrequencyList() {
 		return frequencyList;
 	}
+	  
+	 
 	public void setFrequencyList(List<Frequency> frequency) {
 		this.frequencyList = frequency;
 	}
 	
 	
-	  @PlanningScore
-	    public HardSoftScore getScore() {
+	 @PlanningScore
+	 public HardSoftScore getScore() {
 	        return score;
-	    }
+	 }
 
-	    public void setScore(HardSoftScore score) {
+	  
+	  public void setScore(HardSoftScore score) {
 	        this.score = score;
-	    }
+	   }
 	
 
 }
