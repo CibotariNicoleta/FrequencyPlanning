@@ -19,6 +19,7 @@ public class FrequencyPlan {
 	
 	private List<Transmitter> transmitterList;
 	private List<Frequency> frequencyList;
+	private List<Site> siteList;
     private HardSoftScore score;
 	
 	public FrequencyPlan(List<Transmitter> transmitter, List<Frequency> frequency) {
@@ -63,6 +64,17 @@ public class FrequencyPlan {
 	  public void setScore(HardSoftScore score) {
 	        this.score = score;
 	   }
+
+
+	public List<Site> getSiteList() {
+		return siteList;
+	}
+
+
+	public void setSiteList(List<Site> siteList) {
+		this.siteList = siteList;
+	}
 	
+	  
 
 }

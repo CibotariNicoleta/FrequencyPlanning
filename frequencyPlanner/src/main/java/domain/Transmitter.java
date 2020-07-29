@@ -14,8 +14,8 @@ public class Transmitter {
 	
 	private int id;
 	private List<Transmitter> neighbours = new ArrayList<Transmitter>();
-	
 	private Frequency frequency;
+	private Site site;
 	
 	public Transmitter(int id) {
 		this.id = id;
@@ -33,6 +33,14 @@ public class Transmitter {
 		this.id = frequencyValue;
 	}
 
+	public Site getSite() {
+		return site;
+	}
+
+	public void setSite(Site site) {
+		this.site = site;
+	}
+
 	public List<Transmitter> getNeighbours() {
 		return neighbours;
 	}
@@ -43,7 +51,6 @@ public class Transmitter {
 
 	@PlanningVariable(valueRangeProviderRefs = {"frequencyRange"})
 	public Frequency getFrequency() {
-		
 		return frequency;
 		
 	}

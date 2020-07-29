@@ -32,9 +32,9 @@
     <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
   </constructionHeuristic>
   
-    <exhaustiveSearch>
+  <!--   <exhaustiveSearch>
     <exhaustiveSearchType>BRUTE_FORCE</exhaustiveSearchType>
-  </exhaustiveSearch>
+  </exhaustiveSearch> -->
   <!--<localSearch>-->
     <!--<unionMoveSelector>-->
       <!--<changeMoveSelector/>-->
