@@ -35,7 +35,7 @@ public class FrequencyPlannerApplication {
         Solver<FrequencyPlan> solver = solverFactory.buildSolver();
         
         // Load a problem
-        FrequencyPlan unsolvedFrequencyPlan = new FrequencyPlanGenerator().createFrequencyPlan(25,18, 5);
+        FrequencyPlan unsolvedFrequencyPlan = new FrequencyPlanGenerator().createFrequencyPlan(1000, 60, 10);
        
         // Solve the problem
         FrequencyPlan solvedFrequencyPlan = solver.solve(unsolvedFrequencyPlan);
@@ -43,9 +43,15 @@ public class FrequencyPlannerApplication {
 		
 		 
 		for(Transmitter iterator: solvedFrequencyPlan.getTransmitterList()) {
-			System.out.println("\n Transmitter id->: "+iterator.getId()+" | frequency---->"+iterator.getFrequency().getFrequencyValue());
+			if(iterator.getFrequency()==null)
+			     System.out.println("\n Transmitter id->: "+iterator.getId()+" | frequency---->null"+ " | site-->" + iterator.getSite().getIdSite());
+			    else
+			      System.out.println("\n Transmitter id->: "+iterator.getId()+" | frequency---->"+iterator.getFrequency().getFrequencyValue()+ " | site-->" + iterator.getSite().getIdSite());
 			if(iterator.getNeighbours()!=null) {
 			for(Transmitter secondIterrator:iterator.getNeighbours())
+				if(secondIterrator.getFrequency()==null)
+			System.out.println(" \n TransmitterNeighbour id ->: "+secondIterrator.getId() + "  | frequency---->null");
+				else
 			System.out.println(" \n TransmitterNeighbour id ->: "+secondIterrator.getId() + "  | frequency---->"+secondIterrator.getFrequency().getFrequencyValue());
 		    }
 			System.out.println("\n numarul de vecini : " + iterator.getNeighbours().size());
@@ -54,18 +60,12 @@ public class FrequencyPlannerApplication {
 		
 		
 		System.out.println(solver.getBestScore());
-		
-		for(Frequency frequency:solvedFrequencyPlan.getFrequencyList()) {
-			System.out.println("\n frequency id: ----->" + frequency.getFrequencyValue());
-		}
-			
-		
-		for(Site iteratorSite : solvedFrequencyPlan.getSiteList()) {
-			System.out.println("/n Site id:-> " + iteratorSite.getIdSite());
-			for(Transmitter iteratorTransmitter : iteratorSite.getTransmittersList()) {
-				System.out.println("/n Transmitter id-> : " + iteratorTransmitter.getId());
-			}
-		}
+//		
+//		for(Frequency frequency:solvedFrequencyPlan.getFrequencyList()) {
+//			System.out.println("\n frequency id: ----->" + frequency.getFrequencyValue());
+//		}
+//			
+
 	}
 	
 	

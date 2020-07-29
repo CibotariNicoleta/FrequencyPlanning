@@ -21,6 +21,7 @@ import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScoreHolder;
 import domain.Frequency;
 import domain.FrequencyPlan;
 import domain.Transmitter;
+import domain.Site;
 
 global HardSoftScoreHolder scoreHolder;
 
@@ -43,15 +44,23 @@ rule "no neighbour with the same frequency"
       end
       
       
+ rule "transmitter from the same site with frequency difference > 2 "    
+   when 
+      $transmitter:Transmitter($siteId : site.getIdSite(), $id : getId(),frequency!=null, $frequency : frequency.getFrequencyValue() )
+        Transmitter(frequency!=null && site.getIdSite == $siteId && getId()!=$id && ((frequency.getFrequencyValue() - $frequency)<=2 || (frequency.getFrequencyValue() - $frequency)>= -2 ))
+   then  
+      scoreHolder.addHardConstraintMatch(kcontext, -1);
+   end
       
-  /*rule "is null frequency"
+      
+ /* rule "is null frequency"
   when 
       $transmitter:Transmitter($frequency : frequency == null , $neighbours : neighbours)
          $neighboursIterator : Transmitter($neighbourFrequency : frequency == null) from $neighbours
             
   then
       
-       scoreHolder.addHardConstraintMatch(kcontext, 0);
+       scoreHolder.addHardConstraintMatch(kcontext, -1);
       end*/
 
 

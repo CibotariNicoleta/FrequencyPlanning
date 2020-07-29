@@ -18,7 +18,19 @@ public class FrequencyEasyScoreCalculator implements EasyScoreCalculator<Frequen
 				 else if(iterator.getFrequency().getFrequencyValue() == neighbourIterator.getFrequency().getFrequencyValue() )
 					 hardScore-=1;
 		 }
-		 return HardSoftScore.of(hardScore, 0 );
+		 
+		 
+		 for(int i = 0 ; i<fr.getTransmitterList().size(); i++)
+			 for(int j=i+1 ; j < fr.getTransmitterList().size(); j++) {
+				 if(( fr.getTransmitterList().get(i).getFrequency()==null||fr.getTransmitterList().get(j).getFrequency()==null ))
+					 continue;
+				 else {
+				 if((fr.getTransmitterList().get(i).getSite().getIdSite()==fr.getTransmitterList().get(j).getSite().getIdSite()) )
+					 if(Math.abs(fr.getTransmitterList().get(i).getFrequency().getFrequencyValue() - fr.getTransmitterList().get(j).getFrequency().getFrequencyValue())<2)
+						 hardScore-=1;
+				 }
+			 }
+						 return HardSoftScore.of(hardScore, 0 );
 	}
 }
 

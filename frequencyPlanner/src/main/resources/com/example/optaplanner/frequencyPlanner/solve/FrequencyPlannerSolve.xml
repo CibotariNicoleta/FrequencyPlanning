@@ -9,11 +9,11 @@
 
   <!-- Score configuration -->
   <scoreDirectorFactory>
-     <!--  <easyScoreCalculatorClass>score.calculator.FrequencyEasyScoreCalculator</easyScoreCalculatorClass> -->
+       <easyScoreCalculatorClass>score.calculator.FrequencyEasyScoreCalculator</easyScoreCalculatorClass> 
    <!--   <easyScoreCalculatorClass>org.optaplanner.examples.cloudbalancing.optional.score.CloudBalancingMapBasedEasyScoreCalculator</easyScoreCalculatorClass>-->
     <!--<constraintProviderClass>org.optaplanner.examples.cloudbalancing.optional.score.CloudBalancingConstraintProvider</constraintProviderClass>-->
     <!--<incrementalScoreCalculatorClass>org.optaplanner.examples.cloudbalancing.optional.score.CloudBalancingIncrementalScoreCalculator</incrementalScoreCalculatorClass>-->
-     <scoreDrl>com/example/optaplanner/frequencyPlanner/solve/FrequencyPlannerConstraints.drl</scoreDrl> 
+    <!--   <scoreDrl>com/example/optaplanner/frequencyPlanner/solve/FrequencyPlannerConstraints.drl</scoreDrl> -->
     <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
     <!--<assertionScoreDirectorFactory>-->
       <!--<easyScoreCalculatorClass>org.optaplanner.examples.cloudbalancing.optional.score.CloudBalancingMapBasedEasyScoreCalculator</easyScoreCalculatorClass>-->
