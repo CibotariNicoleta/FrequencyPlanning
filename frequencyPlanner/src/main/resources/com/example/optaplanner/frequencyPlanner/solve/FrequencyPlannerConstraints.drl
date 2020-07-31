@@ -47,9 +47,9 @@ rule "no neighbour with the same frequency"
  rule "transmitter from the same site with frequency difference > 2 "    
    when 
       $transmitter:Transmitter($siteId : site.getIdSite(), $id : getId(),frequency!=null, $frequency : frequency.getFrequencyValue() )
-        Transmitter(frequency!=null && site.getIdSite == $siteId && getId()!=$id && ((frequency.getFrequencyValue() - $frequency)<=2 || (frequency.getFrequencyValue() - $frequency)>= -2 ))
+        Transmitter(frequency!=null && site.getIdSite == $siteId && getId()!=$id && Math.abs(frequency.getFrequencyValue() - $frequency)<2 )
    then  
-      scoreHolder.addHardConstraintMatch(kcontext, -1);
+      scoreHolder.addHardConstraintMatch(kcontext, -2);
    end
       
       

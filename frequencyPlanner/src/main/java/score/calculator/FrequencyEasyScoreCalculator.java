@@ -30,6 +30,14 @@ public class FrequencyEasyScoreCalculator implements EasyScoreCalculator<Frequen
 						 hardScore-=1;
 				 }
 			 }
+		 
+//		 for(Transmitter iterator : fr.getTransmitterList()) {
+//			 if(iterator.getFrequency()==null)
+//				 hardScore-=1;
+//		 }
+			 
+				 
+		 
 						 return HardSoftScore.of(hardScore, 0 );
 	}
 }

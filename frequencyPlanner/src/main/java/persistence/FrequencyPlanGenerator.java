@@ -64,7 +64,8 @@ public class FrequencyPlanGenerator {
 	public void createFrequencyList(FrequencyPlan frequencyPlan, int frequencyListSize) {
 		List<Frequency> frequencyList = new ArrayList<>(frequencyListSize);
 		for(int i=0; i < frequencyListSize; i++) {
-			Frequency frequency = generateFrequency();
+			Frequency frequency = new Frequency(i);
+					//generateFrequency();
 			frequencyList.add(frequency);
 		}
 		
@@ -107,8 +108,8 @@ public class FrequencyPlanGenerator {
 		for(Transmitter transmitter:transmitterList)
 		{
 			int currentSize = transmitter.getNeighbours().size();
-			
-			for(int i=currentSize; i<generateNumberOfNeighbours; i++)
+		
+			for(int i=currentSize; i<32; i++)
 			{
 				
 				    Transmitter transmitterNeighbourGenerate = transmitterList.get(random.nextInt(transmitterList.size()));  
@@ -117,7 +118,7 @@ public class FrequencyPlanGenerator {
 					     continue;
 				}else 
 				{
-					if(transmitterNeighbourGenerate.getNeighbours().size()<generateNumberOfNeighbours) {
+					if(transmitterNeighbourGenerate.getNeighbours().size()<32) {
 					transmitter.getNeighbours().add(transmitterNeighbourGenerate);
 					 transmitterNeighbourGenerate.getNeighbours().add(transmitter);
 					 
@@ -175,7 +176,7 @@ public class FrequencyPlanGenerator {
 		int finish = numberOfTransmittersPerSite ;
 		for(int siteIterator = 0 ; siteIterator < siteList.size(); siteIterator++) {
 			for(int transmitterIterator = start; transmitterIterator < finish; transmitterIterator++ ) {
-				System.out.println(transmitterIterator);
+				
 				if(transmitterList.size() > transmitterIterator) {
 				transmitterList.get(transmitterIterator)
 				.setSite(siteList.get(siteIterator));
@@ -186,7 +187,7 @@ public class FrequencyPlanGenerator {
 			start = finish;
 			finish+=numberOfTransmittersPerSite;
 		}
-		System.out.println("cv");
+		
 		
 	}
 
