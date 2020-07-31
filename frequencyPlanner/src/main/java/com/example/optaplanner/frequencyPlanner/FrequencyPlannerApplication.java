@@ -35,7 +35,7 @@ public class FrequencyPlannerApplication {
         Solver<FrequencyPlan> solver = solverFactory.buildSolver();
         
         // Load a problem
-        FrequencyPlan unsolvedFrequencyPlan = new FrequencyPlanGenerator().createFrequencyPlan(10000, 500, 30);
+        FrequencyPlan unsolvedFrequencyPlan = new FrequencyPlanGenerator().createFrequencyPlan(24, 20, 2);
        
         // Solve the problem
         FrequencyPlan solvedFrequencyPlan = solver.solve(unsolvedFrequencyPlan);
@@ -46,7 +46,10 @@ public class FrequencyPlannerApplication {
 			if(iterator.getFrequency()==null)
 			     System.out.println("\n Transmitter id->: "+iterator.getId()+" | frequency---->null"+ " | site-->" + iterator.getSite().getIdSite());
 			    else
-			      System.out.println("\n Transmitter id->: "+iterator.getId()+" | frequency---->"+iterator.getFrequency().getFrequencyValue()+ " | site-->" + iterator.getSite().getIdSite());
+			    	if(iterator.getType() == "Hopping")
+			            System.out.println("\n Transmitter id->: "+iterator.getId()+" | frequency---->"+iterator.getFrequency().getFrequencyValue()+ " | site-->" + iterator.getSite().getIdSite() +"  HOPPING, MAIO ->" + iterator.getMaio().getPosition() + "   Group -> "+iterator.getMaio().getFrequencyGroupNumber());
+			    	else
+			    		System.out.println("\n Transmitter id->: "+iterator.getId()+" | frequency---->"+iterator.getFrequency().getFrequencyValue()+ " | site-->" + iterator.getSite().getIdSite() +"NO HOPPING");
 			if(iterator.getNeighbours()!=null) {
 			for(Transmitter secondIterrator:iterator.getNeighbours())
 				if(secondIterrator.getFrequency()==null)

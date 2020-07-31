@@ -16,13 +16,35 @@ public class Transmitter {
 	private List<Transmitter> neighbours = new ArrayList<Transmitter>();
 	private Frequency frequency;
 	private Site site;
+	private MAIO maio;
+	private String type;
 	
-	public Transmitter(int id) {
+
+	public Transmitter(int id, String type) {
 		this.id = id;
+		this.type = type;
 	}
 	
 	public Transmitter() {
 		
+	}
+	
+	@PlanningVariable(valueRangeProviderRefs = {"MAIORange"})
+	public MAIO getMaio() {
+		return maio;
+	}
+
+	public void setMaio(MAIO maio) {
+		this.maio = maio;
+	}
+
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public int getId() {

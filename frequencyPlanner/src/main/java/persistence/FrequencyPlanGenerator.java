@@ -6,6 +6,7 @@ import java.util.Random;
 
 import domain.Frequency;
 import domain.FrequencyPlan;
+import domain.MAIO;
 import domain.Site;
 import domain.Transmitter;
 
@@ -19,6 +20,20 @@ public class FrequencyPlanGenerator {
 			101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,
 			122,123,124,125,126,127,128,129,130,131,132,33,134,135,136,137,138,139,140,141,142,
 			143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160};
+	
+	private static final String[] transmitterType = {
+			"Hopping", "Non-Hopping"
+	};
+	
+	
+	public static int[] frequencyDomain = {
+			1,4,3,2,5,6,7,8,9,10,11,12,13,14,15,16,17,18,
+			19,20};
+	
+	
+	public static int[] frequencyGroup1 = {1,4,3,2,5,6,7,8,9,10};
+	
+	public static int[] frequencyGroup2 = {11,12,13,14,15,16,17,18,19,20};
 	
 //	private static final Transmitter[] transmitter = {
 //			new Transmitter(123),
@@ -38,9 +53,23 @@ public class FrequencyPlanGenerator {
 		FrequencyPlan frequencyPlan = new FrequencyPlan();
 		createFrequencyList(frequencyPlan, frequencyList);
 		createTransmitterList(frequencyPlan, transmitterList, numberOfTransmittersPerSite);
+		createMaioList(frequencyPlan);
 		return frequencyPlan;
 	}
 	
+	
+	public void createMaioList(FrequencyPlan frequencyPlan) {
+		List<MAIO> maioList = new ArrayList<MAIO>();
+		for(int i=0; i<frequencyDomain.length/2; i++)
+		{
+			MAIO maio1 = new MAIO(i, 1);
+			MAIO maio2 = new MAIO(i, 2);
+			maioList.add(maio1);
+			maioList.add(maio2);	
+		}
+		
+		frequencyPlan.setMaioList(maioList);
+	}
 	
 	public void createTransmitterList(FrequencyPlan frequencyPlan, int transmitterListSize, int numberOfTransmittersPerSite) {
 		List<Transmitter> transmitterList = new ArrayList<>(transmitterListSize);
@@ -58,6 +87,7 @@ public class FrequencyPlanGenerator {
 		frequencyPlan.setTransmitterList(transmitterList);
 		frequencyPlan.setSiteList(siteList);
 	}
+	
 	
 	
 	
@@ -81,7 +111,7 @@ public class FrequencyPlanGenerator {
 			int idTransmitter = random.nextInt(transmitterListSize+100);
 			if(!idList.contains(idTransmitter)) {
 				idList.add(idTransmitter);
-				transmitterGeneration = new Transmitter(idTransmitter);		
+				transmitterGeneration = new Transmitter(idTransmitter, transmitterType[random.nextInt(2)]);		
 				check = false;
 			}else continue;
 	
@@ -109,7 +139,7 @@ public class FrequencyPlanGenerator {
 		{
 			int currentSize = transmitter.getNeighbours().size();
 		
-			for(int i=currentSize; i<32; i++)
+			for(int i=currentSize; i<3; i++)
 			{
 				
 				    Transmitter transmitterNeighbourGenerate = transmitterList.get(random.nextInt(transmitterList.size()));  
@@ -118,7 +148,7 @@ public class FrequencyPlanGenerator {
 					     continue;
 				}else 
 				{
-					if(transmitterNeighbourGenerate.getNeighbours().size()<32) {
+					if(transmitterNeighbourGenerate.getNeighbours().size()<3) {
 					transmitter.getNeighbours().add(transmitterNeighbourGenerate);
 					 transmitterNeighbourGenerate.getNeighbours().add(transmitter);
 					 
@@ -153,6 +183,7 @@ public class FrequencyPlanGenerator {
 		
 	}
 	
+	
 	public Site generateSite(int numberOfSitesGenerated) {
 		List<Integer> idSite = new ArrayList<>();
 		boolean check=true;
@@ -170,6 +201,7 @@ public class FrequencyPlanGenerator {
 		return siteGeneration;
 		
 	}
+	
 	
 	public void addTransmittersToSite(List<Site> siteList, List<Transmitter> transmitterList, int numberOfTransmittersPerSite ) {
 		int start = 0; 

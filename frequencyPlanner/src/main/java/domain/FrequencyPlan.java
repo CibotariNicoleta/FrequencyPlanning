@@ -20,7 +20,9 @@ public class FrequencyPlan {
 	private List<Transmitter> transmitterList;
 	private List<Frequency> frequencyList;
 	private List<Site> siteList;
+	private List<MAIO> maioList;
     private HardSoftScore score;
+    
 	
 	public FrequencyPlan(List<Transmitter> transmitter, List<Frequency> frequency) {
 		super();
@@ -64,6 +66,17 @@ public class FrequencyPlan {
 	  public void setScore(HardSoftScore score) {
 	        this.score = score;
 	   }
+
+	  @ValueRangeProvider(id = "MAIORange")
+	    @ProblemFactCollectionProperty
+	public List<MAIO> getMaioList() {
+		return maioList;
+	}
+
+
+	public void setMaioList(List<MAIO> maioList) {
+		this.maioList = maioList;
+	}
 
 
 	public List<Site> getSiteList() {
