@@ -14,6 +14,10 @@ public class MAIO {
 		this.frequencyGroupNumber = frequencyGroupNumber;
 	}
 	
+	public MAIO() {
+		
+	}
+	
 	public int getPosition() {
 		return position;
 	}

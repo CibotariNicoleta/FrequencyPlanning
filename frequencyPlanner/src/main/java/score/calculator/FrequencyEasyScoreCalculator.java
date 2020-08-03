@@ -12,42 +12,8 @@ import domain.Transmitter;
 import persistence.FrequencyPlanGenerator;
 
 public class FrequencyEasyScoreCalculator implements EasyScoreCalculator<FrequencyPlan>{
-	
-	/* @Override
-	public HardSoftScore calculateScore(FrequencyPlan fr) {
-		 int hardScore = 0;
-		 for(Transmitter iterator : fr.getTransmitterList()) {
-			 for(Transmitter neighbourIterator : iterator.getNeighbours())  
-				 if(iterator.getFrequency()==null || neighbourIterator.getFrequency() ==null)
-					 continue;
-				 else if(iterator.getFrequency().getFrequencyValue() == neighbourIterator.getFrequency().getFrequencyValue() )
-					 hardScore-=1;
-		 }
-		 
-		 
-		 for(int i = 0 ; i<fr.getTransmitterList().size(); i++)
-			 for(int j=i+1 ; j < fr.getTransmitterList().size(); j++) {
-				 if(( fr.getTransmitterList().get(i).getFrequency()==null||fr.getTransmitterList().get(j).getFrequency()==null ))
-					 continue;
-				 else {
-				 if((fr.getTransmitterList().get(i).getSite().getIdSite()==fr.getTransmitterList().get(j).getSite().getIdSite()) )
-					 if(Math.abs(fr.getTransmitterList().get(i).getFrequency().getFrequencyValue() - fr.getTransmitterList().get(j).getFrequency().getFrequencyValue())<2)
-						 hardScore-=1;
-				 }
-			 }
-		 
-//		 for(Transmitter iterator : fr.getTransmitterList()) {
-//			 if(iterator.getFrequency()==null)
-//				 hardScore-=1;
-//		 }
-			 
-				 		
-		 
-						 return HardSoftScore.of(hardScore, 0 );
-	}*/
-	 
-	 
-	 
+
+	 private String badResult; 
 	 @Override
 	 public HardSoftScore calculateScore(FrequencyPlan fr) {
 		
@@ -78,8 +44,13 @@ public class FrequencyEasyScoreCalculator implements EasyScoreCalculator<Frequen
 					 continue;
 				 else {
 				 if((fr.getTransmitterList().get(i).getSite().getIdSite()==fr.getTransmitterList().get(j).getSite().getIdSite()) )
-					 if(Math.abs(fr.getTransmitterList().get(i).getFrequency().getFrequencyValue() - fr.getTransmitterList().get(j).getFrequency().getFrequencyValue())<2)
+					 if(Math.abs(fr.getTransmitterList().get(i).getFrequency().getFrequencyValue() - fr.getTransmitterList().get(j).getFrequency().getFrequencyValue())<2) {
 						 hardScore-=1;
+						 badResult+="\n siteRule not respected: Transmitter: "+fr.getTransmitterList().get(i).getId()+ " with frequency: "+fr.getTransmitterList().get(i).getFrequency().getFrequencyValue()+"and Site: "+fr.getTransmitterList().get(i).getSite().getIdSite()+
+								 " ==>> Transmitter: "+fr.getTransmitterList().get(j).getId()+ " with frequency: "+fr.getTransmitterList().get(j).getFrequency().getFrequencyValue()+"and Site: "+fr.getTransmitterList().get(j).getSite().getIdSite();
+							
+					 }
+						 
 				 }
 			 }
 		return hardScore;
@@ -93,8 +64,12 @@ public class FrequencyEasyScoreCalculator implements EasyScoreCalculator<Frequen
 			 for(Transmitter neighbourIterator : iterator.getNeighbours())  
 				 if(iterator.getFrequency() == null || neighbourIterator.getFrequency() ==null)
 					 continue;
-				 else if(iterator.getFrequency().getFrequencyValue() == neighbourIterator.getFrequency().getFrequencyValue() )
+				 else if(iterator.getFrequency().getFrequencyValue() == neighbourIterator.getFrequency().getFrequencyValue() ) {
 					 hardScore -= 1;
+					 badResult+="\n neighbourRule not respected: Transmitter: "+iterator.getId()+ " with frequency: "+iterator.getFrequency().getFrequencyValue()+"and Site: "+iterator.getSite().getIdSite()+
+							 " ==>> Transmitter: "+neighbourIterator.getId()+ " with frequency: "+neighbourIterator.getFrequency().getFrequencyValue()+"and Site: "+neighbourIterator.getSite().getIdSite();
+				 }
+					
 		 }
 		
 		return hardScore;
@@ -136,7 +111,6 @@ public class FrequencyEasyScoreCalculator implements EasyScoreCalculator<Frequen
 		for(Transmitter transmitter:fr.getTransmitterList())
 			 if(transmitter.getType().equals("Non-Hopping"))
 			 {
-				 System.out.println("\n non");
 				 transmitter.setMaio(null);
 			 }
 			 else {
@@ -145,6 +119,52 @@ public class FrequencyEasyScoreCalculator implements EasyScoreCalculator<Frequen
 			 }
 		return hoppingTransmitterList;		
 	}
+
+
+
+
+	public String getBadResult() {
+		return badResult;
+	}
+
+	
 }
 
+
+
+
+/* @Override
+public HardSoftScore calculateScore(FrequencyPlan fr) {
+	 int hardScore = 0;
+	 for(Transmitter iterator : fr.getTransmitterList()) {
+		 for(Transmitter neighbourIterator : iterator.getNeighbours())  
+			 if(iterator.getFrequency()==null || neighbourIterator.getFrequency() ==null)
+				 continue;
+			 else if(iterator.getFrequency().getFrequencyValue() == neighbourIterator.getFrequency().getFrequencyValue() )
+				 hardScore-=1;
+	 }
+	 
+	 
+	 for(int i = 0 ; i<fr.getTransmitterList().size(); i++)
+		 for(int j=i+1 ; j < fr.getTransmitterList().size(); j++) {
+			 if(( fr.getTransmitterList().get(i).getFrequency()==null||fr.getTransmitterList().get(j).getFrequency()==null ))
+				 continue;
+			 else {
+			 if((fr.getTransmitterList().get(i).getSite().getIdSite()==fr.getTransmitterList().get(j).getSite().getIdSite()) )
+				 if(Math.abs(fr.getTransmitterList().get(i).getFrequency().getFrequencyValue() - fr.getTransmitterList().get(j).getFrequency().getFrequencyValue())<2)
+					 hardScore-=1;
+			 }
+		 }
+	 
+//	 for(Transmitter iterator : fr.getTransmitterList()) {
+//		 if(iterator.getFrequency()==null)
+//			 hardScore-=1;
+//	 }
+		 
+			 		
+	 
+					 return HardSoftScore.of(hardScore, 0 );
+}*/
+ 
+ 
 

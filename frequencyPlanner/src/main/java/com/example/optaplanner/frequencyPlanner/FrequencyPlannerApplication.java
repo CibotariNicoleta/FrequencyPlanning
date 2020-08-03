@@ -22,6 +22,7 @@ import domain.FrequencyPlan;
 import domain.Site;
 import domain.Transmitter;
 import persistence.FrequencyPlanGenerator;
+import score.calculator.FrequencyEasyScoreCalculator;
 
 @SpringBootApplication
 public class FrequencyPlannerApplication {
@@ -35,7 +36,7 @@ public class FrequencyPlannerApplication {
         Solver<FrequencyPlan> solver = solverFactory.buildSolver();
         
         // Load a problem
-        FrequencyPlan unsolvedFrequencyPlan = new FrequencyPlanGenerator().createFrequencyPlan(24, 20, 2);
+        FrequencyPlan unsolvedFrequencyPlan = new FrequencyPlanGenerator().createFrequencyPlan(200, 20, 2);
        
         // Solve the problem
         FrequencyPlan solvedFrequencyPlan = solver.solve(unsolvedFrequencyPlan);
@@ -64,49 +65,15 @@ public class FrequencyPlannerApplication {
 		
 		System.out.println(solver.getBestScore());
 		
+		
 //		for(Frequency frequency:solvedFrequencyPlan.getFrequencyList()) {
 //			System.out.println("\n frequency id: ----->" + frequency.getFrequencyValue());
 //		}
-			
+		FrequencyEasyScoreCalculator checkWhoViolatesRules = new FrequencyEasyScoreCalculator();
+		checkWhoViolatesRules.calculateScore(solvedFrequencyPlan );
+		System.out.println(checkWhoViolatesRules.getBadResult());
 
 	}
-	
-	
-//	private KieServices kieServices = KieServices.Factory.get();
-//
-//	private KieFileSystem getKieFileSystem() throws IOException {
-//		KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
-//		kieFileSystem.write(ResourceFactory.newClassPathResource("com/example/optaplanner/frequencyPlanner/solve/FrequencyPlannerContraints.xml"));
-//		return kieFileSystem;
-//
-//	}
-//
-//	@Bean
-//	public KieContainer getKieContainer() throws IOException {
-//		System.out.println("Container created...");
-//		getKieRepository();
-//		KieBuilder kb = kieServices.newKieBuilder(getKieFileSystem());
-//		kb.buildAll();
-//		KieModule kieModule = kb.getKieModule();
-//		KieContainer kContainer = kieServices.newKieContainer(kieModule.getReleaseId());
-//		return kContainer;
-//
-//	}
-//
-//	private void getKieRepository() {
-//		final KieRepository kieRepository = kieServices.getRepository();
-//		kieRepository.addKieModule(new KieModule() {
-//			public ReleaseId getReleaseId() {
-//				return kieRepository.getDefaultReleaseId();
-//			}
-//		});
-//	}
-//
-//	@Bean
-//	public KieSession getKieSession() throws IOException {
-//		System.out.println("session created...");
-//		return getKieContainer().newKieSession();
-//
-//	}
-
 }
+	
+	

@@ -11,6 +11,10 @@ public class Site {
 	public Site(int idSite) {
 		this.idSite = idSite;
 	}
+	
+	public Site() {
+		
+	}
 
 	public int getIdSite() {
 		return idSite;
