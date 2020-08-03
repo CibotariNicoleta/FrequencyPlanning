@@ -41,7 +41,7 @@ public class FrequencyEasyScoreCalculator implements EasyScoreCalculator<Frequen
 //				 hardScore-=1;
 //		 }
 			 
-				 
+				 		
 		 
 						 return HardSoftScore.of(hardScore, 0 );
 	}*/
@@ -91,11 +91,12 @@ public class FrequencyEasyScoreCalculator implements EasyScoreCalculator<Frequen
 	private int noNeighbourWithTheSameFrequency(FrequencyPlan fr, int hardScore) {
 		for(Transmitter iterator : fr.getTransmitterList()) {
 			 for(Transmitter neighbourIterator : iterator.getNeighbours())  
-				 if(iterator.getFrequency()==null || neighbourIterator.getFrequency() ==null)
+				 if(iterator.getFrequency() == null || neighbourIterator.getFrequency() ==null)
 					 continue;
 				 else if(iterator.getFrequency().getFrequencyValue() == neighbourIterator.getFrequency().getFrequencyValue() )
-					 hardScore-=1;
+					 hardScore -= 1;
 		 }
+		
 		return hardScore;
 	}
 
@@ -105,12 +106,12 @@ public class FrequencyEasyScoreCalculator implements EasyScoreCalculator<Frequen
 	private void getNewFrequency(List<Transmitter> hoppingTransmitterList, int tactFinish, int tact, int startPosition) {
 		
 		for(Transmitter transmitterIterator : hoppingTransmitterList) {
-			if(transmitterIterator.getMaio() !=null) {
-			 if(transmitterIterator.getMaio().getFrequencyGroupNumber()==1) {
-				 if(transmitterIterator.getMaio().getPosition()+tact > tactFinish-1) {
+			if(transmitterIterator.getMaio() != null) {
+			 if(transmitterIterator.getMaio().getFrequencyGroupNumber() == 1) {
+				 if(transmitterIterator.getMaio().getPosition() + tact > tactFinish - 1) {
 				    transmitterIterator.setFrequency(new Frequency(FrequencyPlanGenerator.frequencyGroup1[startPosition]));
 				 }
-				    else
+				 else
 					transmitterIterator.setFrequency(new Frequency(FrequencyPlanGenerator.frequencyGroup1[transmitterIterator.getMaio().getPosition()]));
 					 
 					 
